@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>오늘부터 주무관 | 부산대학교 행정학과</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-screen="start">
+
+  <header class="topbar">
+    <img class="topbar__logo" src="assets/images/pnu-logo.png" alt="부산대학교 PUSAN NATIONAL UNIVERSITY" />
+    <div class="topbar__progress" id="progress" hidden></div>
+    <div class="topbar__right">
+      <span class="topbar__tag">행정학과 체험 부스</span>
+      <button class="icon-btn" id="muteBtn" type="button" aria-label="소리 켜기/끄기" aria-pressed="false">🔊</button>
+    </div>
+  </header>
+
+  <main id="app">
+
+    <!-- 1. 시작 화면 -->
+    <section class="screen is-active" id="screen-start">
+      <div class="hero">
+        <div class="hero__text">
+          <p class="eyebrow">민원 응대 시뮬레이션</p>
+          <h1 class="hero__title">오늘부터<br /><span>주무관</span></h1>
+          <p class="hero__sub">공감과 원칙 사이, 당신의 선택은?</p>
+          <button class="btn btn--primary btn--lg" id="startBtn" type="button">근무 시작하기 →</button>
+          <p class="hero__meta" id="heroMeta"></p>
+        </div>
+        <div class="hero__visual" aria-hidden="true">
+          <!-- 떠다니는 캠퍼스 사진 카드 -->
+          <figure class="photo photo--1"><img src="assets/images/campus-1.jpg" alt="" /></figure>
+          <figure class="photo photo--2"><img src="assets/images/campus-2.jpg" alt="" /></figure>
+          <figure class="photo photo--3"><img src="assets/images/campus-3.jpg" alt="" /></figure>
+          <figure class="photo photo--4"><img src="assets/images/campus-4.jpg" alt="" /></figure>
+
+          <div class="ticket">
+            <span class="ticket__label">대기번호</span>
+            <strong class="ticket__no">001</strong>
+            <span class="ticket__foot">민원실 · 행정학과</span>
+          </div>
+          <div class="badge">
+            <img src="assets/images/admin-logo.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <footer class="start-footer">
+        <img src="assets/images/arise-pnu.png" alt="Arise PNU 같이 더 높게" />
+      </footer>
+    </section>
+
+    <!-- 1-2. 상황 고르기 -->
+    <section class="screen" id="screen-select">
+      <div class="select">
+        <p class="eyebrow">오늘 맡을 민원을 골라 주세요</p>
+        <h2 class="select__title">어떤 민원인을 만나 볼까요?</h2>
+        <div class="select__grid" id="selectGrid"></div>
+      </div>
+    </section>
+
+    <!-- 2. 상황 소개 -->
+    <section class="screen" id="screen-intro">
+      <article class="card intro">
+        <p class="chip" id="introChip"></p>
+        <h2 id="introTitle"></h2>
+        <p id="introDesc" class="intro__desc"></p>
+        <button class="btn btn--primary btn--lg" id="introBtn" type="button">민원인 맞이하기 →</button>
+      </article>
+    </section>
+
+    <!-- 3. 대사 화면 (대사마다 이 화면이 갱신됨) -->
+    <section class="screen" id="screen-scene">
+      <div class="scene">
+        <div class="stage">
+          <div class="avatar" id="avatar"><span id="avatarFace">🙂</span></div>
+          <div class="bubble" id="bubble" tabindex="0" aria-live="polite">
+            <div class="bubble__head">
+              <strong id="speakerName"></strong>
+              <span class="speaking" id="speaking" hidden>🔊 민원인이 말하는 중</span>
+            </div>
+            <p class="bubble__text" id="dialogue"></p>
+            <div class="bubble__tools">
+              <button class="link-btn" id="replayBtn" type="button" hidden>↻ 다시 듣기</button>
+              <span class="bubble__hint" id="skipHint">말풍선을 누르면 대사가 바로 나와요</span>
+            </div>
+          </div>
+        </div>
+        <div class="choices" id="choices"></div>
+      </div>
+    </section>
+
+    <!-- 4. 상황별 결과 -->
+    <section class="screen" id="screen-result">
+      <article class="report" id="resultCard">
+        <header class="report__head">
+          <span>민원 대응 보고서</span>
+          <span id="resultNo"></span>
+        </header>
+        <div class="report__body">
+          <div class="report__info">
+            <p class="chip" id="resultChip"></p>
+            <h2 id="resultTitle"></h2>
+            <p id="resultSummary" class="report__summary"></p>
+          </div>
+          <div class="stamp" id="stamp"></div>
+        </div>
+        <footer class="report__foot">
+          <img src="assets/images/admin-logo.png" alt="" class="report__sign" />
+          <div class="report__actions">
+            <button class="link-btn" id="againBtn" type="button">↺ 다른 민원도 해 보기</button>
+            <button class="btn btn--primary btn--lg" id="restartBtn" type="button">다음 근무자 입장 →</button>
+          </div>
+        </footer>
+      </article>
+    </section>
+
+    <!-- 화면 전환용 막 -->
+    <div class="curtain" id="curtain" aria-hidden="true"></div>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
