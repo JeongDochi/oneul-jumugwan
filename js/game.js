@@ -291,6 +291,25 @@
       e.currentTarget.setAttribute('aria-pressed', String(muted));
     });
 
+    // 전체화면 켜기/끄기
+    const fullBtn = $('#fullBtn');
+    const canFull = document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen;
+    if (!canFull) fullBtn.hidden = true;
+    fullBtn.addEventListener('click', () => {
+      const el = document.documentElement;
+      const isFull = document.fullscreenElement || document.webkitFullscreenElement;
+      if (isFull) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
+    });
+    const onFull = () => {
+      const on = !!(document.fullscreenElement || document.webkitFullscreenElement);
+      document.body.classList.toggle('is-full', on);
+      fullBtn.setAttribute('aria-label', on ? '전체화면 끄기' : '전체화면');
+      fullBtn.title = on ? '전체화면 끄기 (Esc)' : '전체화면';
+    };
+    document.addEventListener('fullscreenchange', onFull);
+    document.addEventListener('webkitfullscreenchange', onFull);
+
     // 키보드: 상황 고르기·선택지 1~3, Enter/Space 로 대사 건너뛰기
     document.addEventListener('keydown', (e) => {
       const screen = document.body.dataset.screen;

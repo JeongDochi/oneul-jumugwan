@@ -64,7 +64,10 @@ h1, h2, p { margin: 0; }
   white-space: pre;
 }
 .topbar__right { display: flex; align-items: center; gap: 12px; }
-.topbar__tag { color: var(--muted); font-size: 14px; font-weight: 600; }
+.topbar__tag { color: #005baa; font-size: 16px; font-weight: 800; letter-spacing: -0.01em; }
+.icon-btn--full { display: grid; place-items: center; }
+.icon-btn--full svg { width: 20px; height: 20px; fill: none; stroke: var(--navy); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+body.is-full .icon-btn--full svg path { d: path("M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"); }
 .icon-btn {
   width: 42px; height: 42px;
   border-radius: 50%;
@@ -469,6 +472,80 @@ h1, h2, p { margin: 0; }
 .pick__title { font-size: clamp(20px, 1.9vw, 24px); line-height: 1.35; color: var(--navy); word-break: keep-all; }
 .pick__desc { font-size: 16px; line-height: 1.6; color: var(--muted); word-break: keep-all; flex: 1; }
 .pick__value { font-size: 15px; font-weight: 800; color: var(--blue); }
+
+
+/* ---------- FHD (1920×1080) 부스 화면 ---------- */
+@media (min-width: 1600px) {
+  .topbar { height: 92px; padding: 0 48px; }
+  .topbar__logo { height: 56px; }
+  .topbar__progress { font-size: 20px; padding: 10px 24px; }
+  .topbar__tag { font-size: 22px; }
+  .topbar__right { gap: 16px; }
+  .icon-btn { width: 54px; height: 54px; font-size: 22px; }
+  .icon-btn--full svg { width: 24px; height: 24px; }
+
+  .screen { padding: 40px 80px; }
+  .btn--lg { font-size: 26px; padding: 22px 44px; border-radius: 18px; }
+  .chip { font-size: 18px; padding: 8px 18px; }
+  .eyebrow { font-size: 22px; margin-bottom: 18px; }
+
+  /* 시작 */
+  .hero { width: min(1640px, 100%); gap: 72px; grid-template-columns: 1fr 1fr; }
+  .hero__title { font-size: 136px; }
+  .hero__sub { font-size: 32px; margin: 30px 0 44px; }
+  .hero__meta { font-size: 20px; margin-top: 24px; }
+  .hero__visual { height: min(640px, 62vh); }
+  .photo { padding: 10px 10px 32px; border-radius: 18px; }
+  .ticket { width: 260px; padding: 22px 26px; }
+  .ticket__label { font-size: 16px; }
+  .ticket__no { font-size: 72px; }
+  .ticket__foot { font-size: 15px; }
+  .badge { width: 150px; height: 150px; }
+  .start-footer { width: min(1640px, 100%); }
+  .start-footer img { height: 68px; }
+  .credit { font-size: 15px; }
+
+  /* 상황 고르기 */
+  .select { width: min(1640px, 100%); }
+  .select__title { font-size: 60px; margin-bottom: 40px; }
+  .select__grid { gap: 32px; }
+  .pick { padding: 36px 34px 34px; gap: 18px; border-radius: 28px; min-height: 400px; }
+  .pick__face { font-size: 64px; }
+  .pick__title { font-size: 32px; }
+  .pick__desc { font-size: 21px; }
+  .pick__value { font-size: 20px; }
+
+  /* 상황 소개 */
+  .intro { width: min(1040px, 100%); padding: 64px 72px; gap: 24px; border-radius: 32px; }
+  .intro h2 { font-size: 60px; }
+  .intro__desc { font-size: 26px; }
+
+  /* 대사 */
+  .scene { width: min(1500px, 100%); gap: 36px; }
+  .stage { gap: 40px; }
+  .avatar { width: 230px; font-size: 130px; border-width: 8px; }
+  .bubble { min-height: 230px; padding: 34px 44px; border-radius: 30px; }
+  .bubble::before { width: 28px; height: 28px; left: -15px; }
+  .bubble__head { margin-bottom: 14px; }
+  .bubble__head strong { font-size: 21px; }
+  .speaking { font-size: 17px; padding: 6px 16px; }
+  .bubble__text { font-size: 42px; }
+  .bubble__hint, .link-btn { font-size: 18px; }
+  .choices { gap: 18px; min-height: 300px; }
+  .choice { font-size: 27px; padding: 24px 32px; gap: 24px; border-radius: 20px; }
+  .choice__no { width: 48px; height: 48px; font-size: 22px; }
+
+  /* 결과 */
+  .report { width: min(1200px, 100%); border-radius: 26px; }
+  .report__head { font-size: 22px; padding: 22px 44px; }
+  .report__body { padding: 56px 44px 40px; min-height: 380px; gap: 40px; }
+  .report__info { gap: 20px; max-width: 56%; }
+  .report__info h2 { font-size: 50px; }
+  .report__summary { font-size: 24px; }
+  .report__foot { padding: 24px 44px 36px; }
+  .report__sign { width: 72px; height: 72px; }
+  .stamp { font-size: 54px; padding: 24px 34px; border-width: 8px; }
+}
 
 /* ---------- 반응형 / 접근성 ---------- */
 @media (max-width: 860px) {
