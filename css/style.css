@@ -244,7 +244,23 @@ h1, h2, p { margin: 0; }
   50% { transform: rotate(-6deg) translateY(-8px); }
 }
 
-.start-footer { flex: none; padding-top: 12px; }
+.start-footer {
+  flex: none;
+  width: min(1100px, 100%);
+  padding-top: 12px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+.credit {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+  text-align: right;
+  word-break: keep-all;
+}
+.credit a { color: inherit; }
 .start-footer img { height: 54px; width: auto; opacity: .9; display: block; }
 
 /* ---------- 2. 상황 소개 ---------- */
@@ -464,6 +480,8 @@ h1, h2, p { margin: 0; }
   .report__info { max-width: 100%; }
   .topbar__tag { display: none; }
   .select__grid { grid-template-columns: 1fr; }
+  .start-footer { flex-direction: column; align-items: flex-start; }
+  .credit { text-align: left; }
   .topbar__progress { font-size: 13px; padding: 6px 12px; }
 }
 
