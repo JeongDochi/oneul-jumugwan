@@ -4,7 +4,7 @@
   const $ = (s) => document.querySelector(s);
   const $$ = (s) => Array.from(document.querySelectorAll(s));
 
-  const MOOD_FACE = { calm: '🙂', upset: '😟', annoyed: '😒', angry: '😠', furious: '😡' };
+  const face = (sc, mood) => window.drawCharacter(sc.complainant.character, mood);
 
   const state = {
     si: 0,            // 고른 상황 index
@@ -160,7 +160,7 @@
         <span class="pick__desc"></span>
         <span class="pick__value"></span>`;
       b.querySelector('.chip').textContent = `상황 ${pad(i + 1)} · ${sc.type}`;
-      b.querySelector('.pick__face').textContent = MOOD_FACE[sc.opening.mood] || MOOD_FACE.calm;
+      b.querySelector('.pick__face').innerHTML = face(sc, sc.opening.mood);
       b.querySelector('.pick__title').textContent = sc.title;
       b.querySelector('.pick__desc').textContent = sc.intro;
       b.querySelector('.pick__value').textContent = `# ${sc.value}`;
@@ -186,6 +186,7 @@
     state.turn = 1;
     state.ending = null;
     go('scene', () => {
+      $('#avatar').dataset.mood = '';
       $('#speakerName').textContent = sc.complainant.name;
       showLine(sc.opening, showChoices);
     });
@@ -200,7 +201,15 @@
   function showLine(line, done) {
     state.line = line;
     updateProgress();
-    $('#avatarFace').textContent = MOOD_FACE[line.mood] || MOOD_FACE.calm;
+    // 대사 감정에 맞춰 캐릭터 표정 바꾸기 (표정이 바뀔 때 살짝 튀는 효과)
+    const holder = $('#avatarFace');
+    const prev = $('#avatar').dataset.mood;
+    holder.innerHTML = face(SCENARIOS[state.si], line.mood || 'calm');
+    if (prev && prev !== line.mood) {
+      holder.classList.remove('mood-pop');
+      void holder.offsetWidth;
+      holder.classList.add('mood-pop');
+    }
     $('#avatar').dataset.mood = line.mood || 'calm';
     $('#choices').innerHTML = '';
     $('#replayBtn').hidden = !line.audio;

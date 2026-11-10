@@ -30,7 +30,8 @@ endings: {
 
 - 고른 선택지의 `reply`가 곧 다음 대사이고, `ending`에 닿으면 그 반응을 보여 준 뒤 결과 화면으로 넘어갑니다.
 - `result`가 `happy`면 ‘민원 대응 완료’, `bad`면 ‘민원 대응 재검토’ 도장이 찍힙니다.
-- `mood`: calm | upset | annoyed | angry | furious
+- `mood`: calm | upset | annoyed | angry | furious → 민원인 캐릭터 표정 (좋음 / 서운함 / 언짢음 / 화남 / 폭발)
+- 캐릭터는 `complainant.character`로 정합니다: `owner`(가게 사장님) · `grandma`(할매) · `resident`(아파트 주민). 그림은 `js/characters.js`에 SVG로 들어 있습니다.
 
 ## 이미지·음성 파일
 | 경로 | 내용 |

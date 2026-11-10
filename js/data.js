@@ -38,7 +38,7 @@ const SCENARIOS = [
     value: '공정성',
     title: '“5분 세웠는데 과태료라니요?”',
     intro: '주정차 위반 과태료 고지서를 든 민원인이 억울하다며 창구로 다가옵니다.',
-    complainant: { name: '민원인 A · 동네 가게 사장님' },
+    complainant: { name: '민원인 A · 동네 가게 사장님', character: 'owner' },   // character: owner / grandma / resident
     opening: {
       mood: 'annoyed',
       text: '아니 보소, 가게 앞에 물건 쫌 내린다꼬 딱 5분 세웠다 아입니꺼. 그걸로 과태료를 매기는 기 말이 됩니꺼?',
@@ -136,7 +136,7 @@ const SCENARIOS = [
     value: '공감과 연계',
     title: '“평생 세금 냈는데 왜 나만 안 된대요?”',
     intro: '기초연금 탈락 통지서를 든 어르신이 떨리는 목소리로 창구에 앉습니다.',
-    complainant: { name: '민원인 B · 70대 할매' },
+    complainant: { name: '민원인 B · 70대 할매', character: 'grandma' },   // character: owner / grandma / resident
     opening: {
       mood: 'upset',
       text: '이거 받았는데… 기초연금이 안 된다 카네. 평생 세금 꼬박꼬박 냈는데, 와 내만 안 되능교?',
@@ -235,7 +235,7 @@ const SCENARIOS = [
     value: '한계와 보호',
     title: '“몇 번을 신고했는데 왜 아무것도 안 해요!”',
     intro: '공사장 소음 민원을 여러 번 넣은 주민이 잔뜩 화가 난 채 창구로 들어옵니다.',
-    complainant: { name: '민원인 C · 공사장 옆 아파트 주민' },
+    complainant: { name: '민원인 C · 공사장 옆 아파트 주민', character: 'resident' },   // character: owner / grandma / resident
     opening: {
       mood: 'angry',
       text: '새벽부터 공사 소리 때문에 잠을 몬 잔다 아입니꺼! 벌써 네 번째 신고인데, 도대체 구청은 뭐 하는 기고?',

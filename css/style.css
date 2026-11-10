@@ -293,8 +293,17 @@ body.is-full .icon-btn--full svg path { d: path("M9 4v5H4M15 4v5h5M9 20v-5H4M15 
   border: 6px solid var(--blue-soft);
   box-shadow: var(--shadow);
   display: grid; place-items: center;
-  font-size: clamp(64px, 9vw, 100px);
+  overflow: hidden;
+  background: linear-gradient(180deg, #eef4fc, #dfe9f7);
   transition: border-color .3s, transform .3s;
+}
+.avatar__char { width: 100%; height: 100%; display: block; }
+.avatar__char .char, .pick__face .char { width: 100%; height: 100%; display: block; }
+.avatar__char.mood-pop { animation: moodpop .35s ease; }
+@keyframes moodpop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08) translateY(-4px); }
+  100% { transform: scale(1); }
 }
 .avatar[data-mood='angry'],
 .avatar[data-mood='furious'] { border-color: #f3c9c5; }
@@ -509,7 +518,12 @@ body.is-full .icon-btn--full svg path { d: path("M9 4v5H4M15 4v5h5M9 20v-5H4M15 
 }
 .pick:hover { transform: translateY(-6px); border-color: var(--blue); box-shadow: 0 18px 40px rgba(11, 79, 160, .18); }
 .pick__top { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.pick__face { font-size: 44px; line-height: 1; }
+.pick__face {
+  width: 84px; height: 84px; flex: none;
+  border-radius: 50%; overflow: hidden;
+  border: 3px solid var(--blue-soft);
+  background: linear-gradient(180deg, #eef4fc, #dfe9f7);
+}
 .pick__title { font-size: clamp(20px, 1.9vw, 24px); line-height: 1.35; color: var(--navy); word-break: keep-all; }
 .pick__desc { font-size: 16px; line-height: 1.6; color: var(--muted); word-break: keep-all; flex: 1; }
 .pick__value { font-size: 15px; font-weight: 800; color: var(--blue); }
@@ -551,7 +565,7 @@ body.is-full .icon-btn--full svg path { d: path("M9 4v5H4M15 4v5h5M9 20v-5H4M15 
   .select__title { font-size: 60px; margin-bottom: 40px; }
   .select__grid { gap: 32px; }
   .pick { padding: 36px 34px 34px; gap: 18px; border-radius: 28px; min-height: 400px; }
-  .pick__face { font-size: 64px; }
+  .pick__face { width: 112px; height: 112px; }
   .pick__title { font-size: 32px; }
   .pick__desc { font-size: 21px; }
   .pick__value { font-size: 20px; }
@@ -564,7 +578,7 @@ body.is-full .icon-btn--full svg path { d: path("M9 4v5H4M15 4v5h5M9 20v-5H4M15 
   /* 대사 */
   .scene { width: min(1500px, 100%); gap: 36px; }
   .stage { gap: 40px; }
-  .avatar { width: 230px; font-size: 130px; border-width: 8px; }
+  .avatar { width: 250px; border-width: 8px; }
   .bubble { min-height: 230px; padding: 34px 44px; border-radius: 30px; }
   .bubble::before { width: 28px; height: 28px; left: -15px; }
   .bubble__head { margin-bottom: 14px; }
