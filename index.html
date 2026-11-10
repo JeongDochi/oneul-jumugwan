@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>오늘부터 주무관 | 부산대학교 행정학과</title>
   <!-- 파일을 고칠 때마다 ?v= 뒤 숫자를 바꾸면 브라우저가 예전 파일을 쓰지 않고 새로 받아요 -->
-  <link rel="stylesheet" href="css/style.css?v=20261107a" />
+  <link rel="stylesheet" href="css/style.css?v=20261111a" />
 </head>
 <body data-screen="start">
 
@@ -112,7 +112,24 @@
             <h2 id="resultTitle"></h2>
             <p id="resultSummary" class="report__summary"></p>
           </div>
-          <div class="stamp" id="stamp"></div>
+          <div class="stamp-zone">
+            <div class="stamp" id="stamp"></div>
+            <!-- 내려와서 찍히는 도장 -->
+            <svg class="stamper" id="stamper" viewBox="0 0 160 240" aria-hidden="true">
+              <defs>
+                <linearGradient id="wood" x1="0" x2="1">
+                  <stop offset="0" stop-color="#8a5a33" />
+                  <stop offset=".5" stop-color="#b47a46" />
+                  <stop offset="1" stop-color="#7a4d2a" />
+                </linearGradient>
+              </defs>
+              <ellipse cx="80" cy="38" rx="34" ry="30" fill="url(#wood)" />
+              <rect x="62" y="60" width="36" height="96" rx="12" fill="url(#wood)" />
+              <rect x="22" y="150" width="116" height="40" rx="10" fill="#3b2a1e" />
+              <rect x="16" y="186" width="128" height="26" rx="6" class="stamper__ink" />
+              <ellipse cx="68" cy="30" rx="10" ry="7" fill="#fff" opacity=".25" />
+            </svg>
+          </div>
         </div>
         <footer class="report__foot">
           <img src="assets/images/admin-logo.png" alt="" class="report__sign" />
@@ -128,7 +145,7 @@
     <div class="curtain" id="curtain" aria-hidden="true"></div>
   </main>
 
-  <script src="js/data.js?v=20261107a"></script>
-  <script src="js/game.js?v=20261107a"></script>
+  <script src="js/data.js?v=20261111a"></script>
+  <script src="js/game.js?v=20261111a"></script>
 </body>
 </html>

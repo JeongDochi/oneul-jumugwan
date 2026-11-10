@@ -17,7 +17,8 @@
     typeFull: '',
     typeDone: null,
     choicesReady: false,
-    currentChoices: []
+    currentChoices: [],
+    stampTimer: null
   };
 
   /* ---------------- 음성 ---------------- */
@@ -54,6 +55,56 @@
       this.muted = !this.muted;
       if (this.muted) this.stop();
       return this.muted;
+    }
+  };
+
+  /* ---------------- 효과음 (파일 없이 브라우저에서 직접 만듦) ---------------- */
+  const Sfx = {
+    ctx: null,
+    unlock() {
+      // 브라우저는 사람이 누르기 전엔 소리를 막으므로, 첫 클릭 때 준비해 둠
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      if (!this.ctx) this.ctx = new AC();
+      if (this.ctx.state === 'suspended') this.ctx.resume();
+    },
+    stamp() {
+      if (Voice.muted) return;
+      this.unlock();
+      const ctx = this.ctx;
+      if (!ctx) return;
+      const t = ctx.currentTime;
+      const out = ctx.createGain();
+      out.gain.value = 0.9;
+      out.connect(ctx.destination);
+
+      // 1) 묵직한 "쿵": 낮은 음이 빠르게 떨어짐
+      const osc = ctx.createOscillator();
+      const og = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(160, t);
+      osc.frequency.exponentialRampToValueAtTime(42, t + 0.18);
+      og.gain.setValueAtTime(0.0001, t);
+      og.gain.exponentialRampToValueAtTime(1.0, t + 0.008);
+      og.gain.exponentialRampToValueAtTime(0.0001, t + 0.32);
+      osc.connect(og).connect(out);
+      osc.start(t);
+      osc.stop(t + 0.35);
+
+      // 2) 종이에 닿는 "탁": 짧은 잡음
+      const len = Math.floor(ctx.sampleRate * 0.09);
+      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
+      const noise = ctx.createBufferSource();
+      noise.buffer = buf;
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass';
+      lp.frequency.value = 1800;
+      const ng = ctx.createGain();
+      ng.gain.value = 0.55;
+      noise.connect(lp).connect(ng).connect(out);
+      noise.start(t);
     }
   };
 
@@ -259,11 +310,30 @@
       $('#resultSummary').textContent = end.summary;
 
       const stamp = $('#stamp');
+      const stamper = $('#stamper');
+      const card = $('#resultCard');
       stamp.textContent = GAME_CONFIG.stampLabel[ending];
       stamp.dataset.ending = ending;
-      stamp.classList.remove('hit');
+      stamper.dataset.ending = ending;
+      [stamp, stamper, card].forEach((el) => el.classList.remove('hit', 'drop', 'shake'));
       void stamp.offsetWidth;
-      setTimeout(() => stamp.classList.add('hit'), 350); // 화면이 열린 뒤 도장 쾅!
+
+      // 화면이 열린 뒤: 도장이 내려옴 → 약 0.55초 뒤 쾅! (잉크 자국 + 흔들림 + 소리) → 들어 올림
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      clearTimeout(state.stampTimer);
+      if (reduce) {
+        stamp.classList.add('hit');
+        Sfx.stamp();
+        return;
+      }
+      state.stampTimer = setTimeout(() => {
+        stamper.classList.add('drop');
+        state.stampTimer = setTimeout(() => {
+          stamp.classList.add('hit');
+          card.classList.add('shake');
+          Sfx.stamp();
+        }, 550);
+      }, 300);
     });
   }
 
@@ -277,6 +347,7 @@
     $('#heroMeta').textContent = `약 2분 · 민원 ${SCENARIOS.length}종 중 하나 선택 · 선택에 따라 달라지는 결말`;
     buildSelectCards();
 
+    document.addEventListener('pointerdown', () => Sfx.unlock(), { once: true });
     $('#startBtn').addEventListener('click', showSelect);
     $('#introBtn').addEventListener('click', startScenario);
     $('#againBtn').addEventListener('click', showSelect);
