@@ -332,7 +332,7 @@
       clearTimeout(state.stampTimer);
       if (reduce) {
         stamp.classList.add('hit');
-        Sfx.stamp();
+        try { Sfx.stamp(); } catch (e) {}
         return;
       }
       state.stampTimer = setTimeout(() => {
@@ -340,7 +340,7 @@
         state.stampTimer = setTimeout(() => {
           stamp.classList.add('hit');
           card.classList.add('shake');
-          Sfx.stamp();
+          try { Sfx.stamp(); } catch (e) { /* 소리가 안 돼도 도장은 보이게 */ }
         }, 550);
       }, 300);
     });

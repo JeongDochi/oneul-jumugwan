@@ -443,16 +443,19 @@ body.is-full .icon-btn--full svg path { d: path("M9 4v5H4M15 4v5h5M9 20v-5H4M15 
   text-align: center;
   transform: rotate(-8deg);
   opacity: 0;
-  mix-blend-mode: multiply;
+  position: relative;
+  z-index: 2;
+  background: transparent;
 }
 .stamp[data-ending='happy'] { color: var(--mint); }
 .stamp[data-ending='bad'] { color: var(--coral); }
 .stamper[data-ending='happy'] { color: var(--mint); }
 .stamper[data-ending='bad'] { color: var(--coral); }
-.stamp.hit { animation: ink .38s cubic-bezier(.2, .9, .3, 1.2) forwards; }
+/* 찍힌 뒤 모습을 기본값으로 둬서, 애니메이션이 안 도는 환경에서도 도장이 반드시 보이게 함 */
+.stamp.hit { opacity: .92; transform: rotate(-8deg); animation: ink .38s cubic-bezier(.2, .9, .3, 1.2) both; }
 @keyframes ink {
-  0%   { opacity: 0;   transform: scale(1.12) rotate(-8deg); filter: blur(1px); }
-  35%  { opacity: 1;   transform: scale(.96) rotate(-8deg); filter: none; }
+  0%   { opacity: 0;   transform: scale(1.12) rotate(-8deg); }
+  35%  { opacity: 1;   transform: scale(.96) rotate(-8deg); }
   100% { opacity: .92; transform: scale(1) rotate(-8deg); }
 }
 
